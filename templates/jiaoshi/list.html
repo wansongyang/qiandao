@@ -1,0 +1,154 @@
+{% include "head.html" %}
+
+
+
+
+
+<div>
+
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <span class="titles">
+            查询
+        </span>
+    </div>
+    <div class="panel-body">
+        
+    
+
+
+<div class="form-search pa10 bg-warning">
+    <form class="form-inline" action="?" size="small" id="formSearch"><!-- form 标签开始 -->
+    
+
+
+                  
+                   工号： <input type="text" class="form-control" style="" name="gonghao" value="{{ request.GET.get("gonghao") }}"/>
+                    
+                   姓名： <input type="text" class="form-control" style="" name="xingming" value="{{ request.GET.get("xingming") }}"/>
+                    
+                   性别： <select class="form-control class_xingbie1" data-value="{{ request.GET.get("xingbie") }}" data-rule-required="true" data-msg-required="请填写性别" id="xingbie" name="xingbie">
+<option value="">请选择</option><option value="男">男</option>
+<option value="女">女</option>
+
+</select>
+<script>
+$(".class_xingbie1").val($(".class_xingbie1").attr("data-value"))</script>
+
+                    
+                   所带班级： <select class="form-control class_suodaibanji2" data-value="{{ request.GET.get("suodaibanji") }}" data-rule-required="true" data-msg-required="请填写所带班级" id="suodaibanji" name="suodaibanji">
+<option value="">请选择</option>{% set select = DB.select("SELECT * FROM banji ORDER BY id desc") %}
+{% for m in select %}
+<option value="{{ m.id }}">{{ m.banjimingcheng }}</option>
+{% endfor %}
+
+</select>
+<script>
+$(".class_suodaibanji2").val($(".class_suodaibanji2").attr("data-value"))</script>
+
+          
+
+
+        <button type="submit" class="btn btn-default">
+    搜索
+</button>
+
+            
+<!--form标签结束--></form>
+</div>
+
+
+
+    
+<script>$("#orderby").val("{{ orderby }}");$("#sort").val("{{ sort }}".toLocaleLowerCase());</script>
+
+
+
+
+
+
+
+    
+
+
+        
+<div class="list-table">
+            <table width="100%" border="1" class="table table-list table-bordered table-hover">
+                <thead>
+                <tr align="center">
+                    <th width="60" data-field="item">序号</th>
+                                        <th>工号                                            </th>
+                                        <th>姓名                                            </th>
+                                        <th>性别                                            </th>
+                                        <th>联系方式                                            </th>
+                                        <th>电子邮箱                                            </th>
+                                        <th>所带班级                                            </th>
+                                        <th>简介                                            </th>
+                    
+                                                            <th width="220" data-field="handler">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                {% for map in lists %} 
+ {% set i=loop.index %}
+                <tr id="{{ map.id }}" pid="">
+                    <td width="30" align="center">
+                        <label>
+                                                        {{ i }}
+                        </label>
+                    </td>
+                                            <td>
+                            {{ map.gonghao }}                        </td>
+                                            <td>
+                            {{ map.xingming }}                        </td>
+                                            <td>
+                            {{ map.xingbie }}                        </td>
+                                            <td>
+                            {{ map.lianxifangshi }}                        </td>
+                                            <td>
+                            {{ map.dianziyouxiang }}                        </td>
+                                            <td>
+                            {% set mapbanji2 = DB.find("SELECT banjimingcheng,id FROM banji where id='%s'"%(map.suodaibanji,)) %}{{ mapbanji2.banjimingcheng }}                        </td>
+                                            <td>
+                            <pre style="padding: 5px;background: none;border: none;margin: 0;">{{ map.jianjie }}</pre>                        </td>
+                    
+                                                            <td align="center">
+                                                                        <a class="btn btn-info btn-xs" href="/jiaoshi/admin/detail/?id={{ map.id }}" title="详情"> 详情 </a>  
+ 
+
+<a class="btn btn-success btn-xs" href="/jiaoshi/admin/updt/?id={{ map.id }}" title="编辑"> 编辑 </a>  
+ 
+
+<a class="btn btn-danger btn-xs" href="/jiaoshi/delete/?id={{ map.id }}" onclick="return confirm('确定删除？此操作不可恢复')" title="删除"> 删除 </a>  
+ 
+
+                        <!--qiatnalijne-->
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+
+
+{% include "page.html" %}
+
+    
+
+
+
+
+    
+
+    </div>
+</div>
+
+
+</div>
+
+
+{% include "foot.html" %}

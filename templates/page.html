@@ -1,0 +1,19 @@
+{% if page %}
+<div class="" style="display: flex; justify-content: center">
+    <div class="pagination pagination-sm pagination-xs pagination-rounded">
+        <li class="disabled"><span class="page-link">总计:{{ page.count }}行,共:{{ page.pageCount }}页</span></li>
+        {% if page.hasPrev %}
+        <li class="page-item"><a class="page-link" href="{{ page.firstUrl }}">第一页</a></li>
+        <li class="page-item"><a class="page-link" href="{{ page.prevUrl }}">上一页</a></li>
+        {% endif %} {% for k,v in page.pageNums %} {% if k == page.currentPage %}
+        <li class="page-item active"><span class="page-link"> {{ k }}</span></li>
+        {% else %}
+        <li class="page-item"><a class="page-link" href="{{ v }}">{{ k }}</a></li>
+        {% endif %} {% endfor %} {% if page.hasNext %}
+        <li class="page-item"><a class="page-link" href="{{ page.nextUrl }}">下一页</a></li>
+        <li class="page-item"><a class="page-link" href="{{ page.lastUrl }}">尾页</a></li>
+        {% endif %}
+    </div>
+</div>
+
+{% endif %}

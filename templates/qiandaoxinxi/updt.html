@@ -1,0 +1,166 @@
+{% include "head.html" %}
+
+<script src="/static/js/jquery.validate.js"></script>
+<script src="/static/js/datepicker/WdatePicker.js"></script>
+
+<div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <span class="titles"> 添加 </span>
+        </div>
+        <div class="panel-body">
+            <form action="/qiandaoxinxi/update/" method="post" name="form1" id="form1">
+                <!-- form 标签开始 -->
+
+                <div class="form-group">
+                    <div class="row">
+                        <label style="text-align: right" class="col-sm-2 hiddex-xs">签到编号</label>
+                        <div class="col-sm-10">
+                            <input
+                                type="text"
+                                class="form-control"
+                                placeholder="输入签到编号"
+                                style="width: 150px"
+                                readonly="readonly"
+                                id="qiandaobianhao"
+                                name="qiandaobianhao"
+                                value="{{ Info.html(mmm.qiandaobianhao) }}"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <label style="text-align: right" class="col-sm-2 hiddex-xs">签到班级<span style="color: red">*</span></label>
+                        <div class="col-sm-10">
+                            <select
+                                class="form-control class_qiandaobanji17"
+                                data-value="{{ Info.html(mmm.qiandaobanji) }}"
+                                data-rule-required="true"
+                                data-msg-required="请填写签到班级"
+                                id="qiandaobanji"
+                                name="qiandaobanji"
+                                style="width: 250px"
+                            >
+                                {% set select = DB.select("SELECT * FROM banji ORDER BY id desc") %} {% for m in select %}
+                                <option value="{{ m.id }}">{{ m.banjimingcheng }}</option>
+                                {% endfor %}
+                            </select>
+                            <script>
+                                $(".class_qiandaobanji17").val($(".class_qiandaobanji17").attr("data-value"));
+                            </script>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <label style="text-align: right" class="col-sm-2 hiddex-xs">签到名称<span style="color: red">*</span></label>
+                        <div class="col-sm-10">
+                            <input
+                                type="text"
+                                class="form-control"
+                                placeholder="输入签到名称"
+                                style="width: 250px"
+                                data-rule-required="true"
+                                data-msg-required="请填写签到名称"
+                                id="qiandaomingcheng"
+                                name="qiandaomingcheng"
+                                value="{{ Info.html(mmm.qiandaomingcheng) }}"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <label style="text-align: right" class="col-sm-2 hiddex-xs">签到时间</label>
+                        <div class="col-sm-10">
+                            <input
+                                type="text"
+                                class="form-control"
+                                onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',lang:'zh-cn'})"
+                                style="width: 200px"
+                                readonly="readonly"
+                                id="qiandaoshijian"
+                                name="qiandaoshijian"
+                                value="{{ Info.html(mmm.qiandaoshijian) }}"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <label style="text-align: right" class="col-sm-2 hiddex-xs">截止时间</label>
+                        <div class="col-sm-10">
+                            <input
+                                type="text"
+                                class="form-control"
+                                onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',lang:'zh-cn'})"
+                                style="width: 200px"
+                                readonly="readonly"
+                                id="jiezhishijian"
+                                name="jiezhishijian"
+                                value="{{ Info.html(mmm.jiezhishijian) }}"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <label style="text-align: right" class="col-sm-2 hiddex-xs">说明</label>
+                        <div class="col-sm-10">
+                            <input
+                                type="text"
+                                class="form-control"
+                                placeholder="输入说明"
+                                style="width: 250px"
+                                id="shuoming"
+                                name="shuoming"
+                                value="{{ Info.html(mmm.shuoming) }}"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <label style="text-align: right" class="col-sm-2 hiddex-xs">发布人</label>
+                        <div class="col-sm-10">
+                            <input
+                                type="text"
+                                class="form-control"
+                                placeholder="输入发布人"
+                                style="width: 150px"
+                                readonly="readonly"
+                                id="faburen"
+                                name="faburen"
+                                value="{{ mmm.faburen }}"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <label style="text-align: right" class="col-sm-2 hiddex-xs"> </label>
+                        <div class="col-sm-10">
+                            <input name="id" value="{{ mmm.id }}" type="hidden" />
+                            <input name="referer" value="{{ request.headers.referer }}" type="hidden" />
+                            <input name="updtself" value="{{ updtself }}" type="hidden" />
+
+                            <button type="submit" class="btn btn-primary" name="Submit">提交</button>
+                            <button type="reset" class="btn btn-default" name="Submit2">重置</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!--form标签结束-->
+            </form>
+
+            <script>
+                $(function () {
+                    $("#form1").validate();
+                });
+            </script>
+        </div>
+    </div>
+</div>
+
+{% include "foot.html" %}

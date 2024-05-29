@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>学生上课签到打卡系统后台管理</title>
+        <link href="/static/htstyle/css/admin_login.css" rel="stylesheet" type="text/css" />
+        <script src="/static/js/jquery.js"></script>
+    </head>
+    <body>
+        <div class="admin_login_wrap">
+
+            <div class="adming_login_border">
+                            <h1>学生上课签到打卡系统</h1>
+                <div class="admin_input">
+                    <form action="/login/?admin=1&a=a" method="post">
+                        <ul class="admin_items">
+                            <li>
+                                <label for="user">用户名：</label>
+                                <input type="text" name="username" value="" id="user" class="admin_input_style" />
+                            </li>
+                            <li>
+                                <label for="pwd">密码：</label>
+                                <input type="password" name="pwd" value="" id="pwd" class="admin_input_style" />
+                            </li>
+                            <li class="pagerandom">
+                                <label for="pagerandom">验证码：</label>
+                                <input type="text" name="pagerandom" value="" id="pagerandom" class="admin_input_style" />
+                                <img onClick="this.src='/captch/?time='+new Date().getTime();" src="/captch/" alt="刷新验证码" />
+                            </li>
+                            <li style="display: none">
+                                <label for="cx">权限：</label>
+                                <select class="admin_input_style" id="cx" name="cx">
+                                    <option value="管理员">管理员</option>
+                                    <option value="教师">教师</option>
+                                    <option value="学生">学生</option>
+                                </select>
+                            </li>
+                            <li>
+                                <input type="submit" value="提交" class="btn btn-primary" />
+                            </li>
+                        </ul>
+                    </form>
+                       <p class="admin_copyright">&copy; Powered by 学生上课签到打卡系统</p>
+                </div>
+            </div>
+
+            <script>
+                $(function () {
+                    if ($("#cx>option").length > 1) {
+                        $("#cx").parent().show();
+                    }
+                });
+            </script>
+
+
+        </div>
+    </body>
+</html>

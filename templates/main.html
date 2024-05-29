@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>学生上课签到打卡系统后台管理</title>
+    <link rel="stylesheet" type="text/css" href="/static/htstyle/css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/htstyle/css/main.css"/>
+    <script type="text/javascript" src="/static/htstyle/js/libs/modernizr.min.js"></script>
+    <script src="/static/htstyle/js/jquery.js"></script>
+</head>
+<body>
+<div class="topbar-wrap white">
+    <div class="topbar-inner clearfix">
+        <div class="topbar-logo-wrap clearfix">
+            <h1 class="topbar-logo none"><a href="/sy/" class="navbar-brand">后台管理</a></h1>
+            <ul class="navbar-list clearfix">
+                <li><a class="on" href="/">学生上课签到打卡系统</a></li>
+
+            </ul>
+        </div>
+        <div class="top-info-wrap">
+            <ul class="top-info-list clearfix">
+                <li><a href="javascript:;">{{ request.session.get("username") }} , {{ request.session.get("cx") }}</a>
+                </li>
+                <li><a href="/mod/" target="main"> 修改密码 </a></li>
+                <li><a href="/logout/">退出</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="container clearfix">
+    <div class="sidebar-wrap">
+
+        <div class="sidebar-content">
+            <ul class="sidebar-list" id="sidebarList">
+                {% if "管理员" == request.session.get("cx") %}
+                    {% include "left_guanliyuan.html" %}
+                {% endif %}
+
+                {% if "教师" == request.session.get("cx") %}
+                    {% include"left_jiaoshi.html" %}
+                {% endif %}
+
+                {% if "学生" == request.session.get("cx") %}
+                {% include "left_xuesheng.html" %}
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+    <!--/sidebar-->
+    <div class="main-wrap">
+        <iframe class="iframe" src="/sy/" name="main"></iframe>
+    </div>
+    <!--/main-->
+</div>
+<script>
+    $(function () {
+        $("#sidebarList").on("click", ">li>a", function () {
+            $("#sidebarList>li.active .sub-menu").stop().slideUp(200);
+            $("#sidebarList>li.active").removeClass("active");
+            $(this).parent().toggleClass("active");
+            $(this).next().stop().slideToggle(200);
+        });
+
+        $("#sidebarList>li:eq(0)>a").click();
+    });
+</script>
+</body>
+</html>

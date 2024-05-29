@@ -1,0 +1,47 @@
+{% include "head.html" %}
+
+<div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <span class="titles"> 详情 </span>
+        </div>
+        <div class="panel-body">
+            <div class="pa10">
+                <div class="pa10 bg-white">
+                    <table class="new-detail">
+                        <tbody>
+                            <tr>
+                                <td class="detail-title">签到编号</td>
+                                <td class="detail-value">{{ map.qiandaobianhao }}</td>
+                                <td class="detail-title">签到班级</td>
+                                <td class="detail-value">
+                                    {% set mapbanji11 = DB.find("SELECT banjimingcheng,id FROM banji where id='%s'"%(map.qiandaobanji,)) %}{{ mapbanji11.banjimingcheng }}
+                                </td>
+                                <td class="detail-title">签到名称</td>
+                                <td class="detail-value">{{ map.qiandaomingcheng }}</td>
+                            </tr>
+                            <tr>
+                                <td class="detail-title">签到时间</td>
+                                <td class="detail-value">{{ map.qiandaoshijian }}</td>
+                                <td class="detail-title">截止时间</td>
+                                <td class="detail-value">{{ map.jiezhishijian }}</td>
+                                <td class="detail-title">说明</td>
+                                <td class="detail-value">{{ map.shuoming }}</td>
+                            </tr>
+                            <tr>
+                                <td class="detail-title">发布人</td>
+                                <td class="detail-value">{{ map.faburen }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt10 not-print">
+                    <button type="button" class="btn btn-default" onclick="history.go(-1);">返回</button>
+                    <button type="button" class="btn btn-default" onclick="window.print()">打印本页</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include "foot.html" %}
