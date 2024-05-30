@@ -6,3 +6,5 @@ ALTER TABLE xuesheng ADD FOREIGN KEY (suozaibanji) REFERENCES banji(id) ON UPDAT
 ALTER TABLE qiandaoxinxi ADD FOREIGN KEY (qiandaobanji) REFERENCES banji(id) ON UPDATE CASCADE ON DELETE CASCADE;
 ALTER TABLE xueshengqiandao ADD FOREIGN KEY (qiandaoxinxiid) REFERENCES qiandaoxinxi(id) ON UPDATE CASCADE ON DELETE CASCADE;
 ALTER TABLE xueshengqiandao ADD FOREIGN KEY (qiandaobanji) REFERENCES banji(id) ON UPDATE CASCADE ON DELETE CASCADE
+
+font：
